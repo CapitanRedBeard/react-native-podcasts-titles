@@ -20,12 +20,14 @@
 #import “React/RCTEventDispatcher.h” // Required when used as a Pod in a Swift project
 #endif
 
+#import "RNMPMediaQuery.h"
+
 @implementation RNMediaQueryBrdige
 @synthesize bridge = _bridge;
 
 // Export a native module
 // https://facebook.github.io/react-native/docs/native-modules-ios.html
-RCT_EXPORT_MODULE();
+RCT_EXPORT_MODULE(MediaQuery);
 
 // Export constants
 // https://facebook.github.io/react-native/releases/next/docs/native-modules-ios.html#exporting-constants
@@ -35,13 +37,13 @@ RCT_EXPORT_MODULE();
            @"EXAMPLE": @"example"
          };
 }
-
-// Export methods to a native module
-// https://facebook.github.io/react-native/docs/native-modules-ios.html
-RCT_EXPORT_METHOD(exampleMethod)
-{
-  [self emitMessageToRN:@"EXAMPLE_EVENT" :nil];
-}
+//
+//// Export methods to a native module
+//// https://facebook.github.io/react-native/docs/native-modules-ios.html
+//RCT_EXPORT_METHOD(exampleMethod)
+//{
+//  [self emitMessageToRN:@"EXAMPLE_EVENT" :nil];
+//}
 
 // List all your events here
 // https://facebook.github.io/react-native/releases/next/docs/native-modules-ios.html#sending-events-to-javascript
@@ -49,14 +51,27 @@ RCT_EXPORT_METHOD(exampleMethod)
 {
   return @[@"SampleEvent"];
 }
-
-#pragma mark - Private methods
-
-// Implement methods that you want to export to the native module
-- (void) emitMessageToRN: (NSString *)eventName :(NSDictionary *)params {
-  // The bridge eventDispatcher is used to send events from native to JS env
-  // No documentation yet on DeviceEventEmitter: https://github.com/facebook/react-native/issues/2819
-  [self sendEventWithName: eventName body: params];
+RCT_REMAP_METHOD(getPermissionStatus,
+                 findEventsWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  resolve([RNMPMediaQuery getStatus]);
 }
+
+//RCT_EXPORT_METHOD(getPermissionStatus, getPermissionStatus:(RNPType)type json:(id)json resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+//{
+//    resolve([RNPMediaLibrary getStatus]);
+//}
+
+
+
+//#pragma mark - Private methods
+
+//// Implement methods that you want to export to the native module
+//- (void) emitMessageToRN: (NSString *)eventName :(NSDictionary *)params {
+//  // The bridge eventDispatcher is used to send events from native to JS env
+//  // No documentation yet on DeviceEventEmitter: https://github.com/facebook/react-native/issues/2819
+//  [self sendEventWithName: eventName body: params];
+//}
 
 @end

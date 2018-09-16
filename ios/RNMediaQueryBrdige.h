@@ -18,6 +18,6 @@
 #import “React/RCTEventEmitter.h” // Required when used as a Pod in a Swift project
 #endif
 
-@interface RNMediaQueryBrdige : RCTEventEmitter <RCTBridgeModule>
+@interface RNMediaQueryBrdige : NSObject <RCTBridgeModule>
   // Define class properties here with @property
 @end
