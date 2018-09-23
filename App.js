@@ -4,21 +4,43 @@ import RNMediaQuery from './RNMediaQueryBridgeNativeModule';
 import { NativeModules } from 'react-native'
 
 export default class App extends React.Component {
+  state = {
+    status: '',
+    podcasts: [],
+  }
+
   async componentDidMount() {
-    console.log('Status: ', await this.getStatus());
+    const status = await this.getStatus()
+    const podcasts = await this.requestPodcastTitles()
+    this.setState({ 
+      status,
+      podcasts,
+    })
+    console.log('Status: ', status);
+    console.log('Podcasts: ', podcasts)
   }
 
   getStatus = () => {
     return RNMediaQuery.getPermissionStatus();
   }
 
+
+  requestPodcastTitles = () => {
+    return RNMediaQuery.requestPodcastTitles();
+  }
+
   render() {
-    console.log('NativeModules.', NativeModules.MediaQuery)
+    const { status, podcasts } = this.state;
+
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text>Status: {status}</Text>
+        { podcasts.length
+            ? podcasts.map((podcast, index) => (
+              <Text>{index}: {podcast.podcastTitle}</Text>
+            ))
+            : null
+        }
       </View>
     );
   }

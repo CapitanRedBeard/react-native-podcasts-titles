@@ -10,5 +10,9 @@ export default {
     return MediaQuery.getPermissionStatus()
   },
 
+  requestPodcastTitles () {
+    return MediaQuery.requestPodcastTitles()
+  }
+
   // EXAMPLE_CONSTANT: RNMediaQueryBrdige.EXAMPLE_CONSTANT
 }

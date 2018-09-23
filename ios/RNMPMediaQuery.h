@@ -3,6 +3,6 @@
 @interface RNMPMediaQuery : NSObject
 
 + (NSString *)getStatus;
-+ (void)request:(void (^)(NSString *))completionHandler;
++ (NSArray *)requestPodcastTitles;
 
 @end

@@ -58,6 +58,15 @@ RCT_REMAP_METHOD(getPermissionStatus,
   resolve([RNMPMediaQuery getStatus]);
 }
 
+RCT_REMAP_METHOD(requestPodcastTitles,
+                 resolver: (RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  resolve([RNMPMediaQuery requestPodcastTitles]);
+}
+
+
+
 //RCT_EXPORT_METHOD(getPermissionStatus, getPermissionStatus:(RNPType)type json:(id)json resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 //{
 //    resolve([RNPMediaLibrary getStatus]);
